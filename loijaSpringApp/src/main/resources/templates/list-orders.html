@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<meta charset="UTF-8">
+<html xmlns:th="http://www.thymeleaf.org">
+	<head th:replace="fragments.html :: headerfiles"></head>
+	<body>	
+		<header th:insert="fragments.html :: navbar"></header>
+		<div class="container">
+			<div class="card mt-5">
+				<div class="card-header text-center">Comandas de fabricación</div>
+				<div class="card-body">
+				<table class="table table-bordered table-striped" id="factoryOrders-table">
+					<thead>
+						<tr>
+							<th>Id</th>
+							<th>Created</th>
+							<th>Item Id</th>	
+							<th>Amount</th>
+							<th>Deadline</th>	
+							<th>Is Completed</th>
+							<th>Acciones</th>
+						</tr>
+					</thead>
+					<tbody>
+						<tr th:each="factoryOrder: ${factoryOrders}">
+							<td th:text="${factoryOrder.id}"></td>
+							<td th:text="${factoryOrder.created}"></td>
+							<td th:text="${factoryOrder.itemId}"></td>
+							<td th:text="${factoryOrder.amount}"></td>
+							<td th:text="${factoryOrder.deadline}"></td>
+							<td th:text="${factoryOrder.isCompleted}"></td>
+							<td>
+								<a th:href="@{/fOrders/update(id=${factoryOrder.id})}" class="btn btn-info m-1">Modificar</a>
+								<a sec:authorize="hasRole('ROLE_MANAGER')" th:href="@{/fOrders/delete(id=${factoryOrder.id})}" class="btn btn-danger m-1">Borrar</a>
+							</td>
+						</tr>
+					</tbody>
+				</table>
+				</div>
+			</div>
+			<a sec:authorize="hasRole('ROLE_MANAGER')" th:href="@{/fOrders/addNew}" class="btn btn-primary mt-3">Añadir nueva comanda</a>
+			<hr/>
+			<a th:href="@{/index}">Volver atrás</a>
+		</div>
+		<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
+		<script type="text/javascript" src="https://cdn.datatables.net/v/bs4/dt-1.11.5/datatables.min.js"></script>
+		<script>
+			$(document).ready(function() {
+				$("#factoryOrders-table").DataTable();
+			})
+		</script>
+		<footer th:replace="fragments.html :: footer"></footer>
+	</body>
+</html>

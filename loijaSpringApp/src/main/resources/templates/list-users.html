@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<meta charset="UTF-8">
+<html xmlns:th="http://www.thymeleaf.org">
+	<head th:replace="fragments.html :: headerfiles"></head>
+	<body>	
+		<header th:insert="fragments.html :: navbar"></header>
+		<div class="container">
+			<div class="card mt-5">
+				<div class="card-header text-center">Usuarios registrados</div>
+					<div class="card-body">
+						<table class="table table-bordered table-striped" id="users-table">
+							<thead>
+								<tr>
+									<th>Id</th>
+									<th>Firstname</th>
+									<th>Surname</th>	
+									<th>Username</th>
+									<th>Roles</th>
+									<th>Acciones</th>
+								</tr>
+							</thead>
+							<tbody>
+								<tr th:each="user: ${users}">
+									<td th:text="${user.id}"></td>
+									<td th:text="${user.firstname}"></td>
+									<td th:text="${user.surname}"></td>
+									<td th:text="${user.username}"></td>
+									<td th:text="${user.roles}"></td>
+									<td>
+										<a th:href="@{/users/update(id=${user.id})}" class="btn btn-info m-1">Modificar</a>
+										<a th:href="@{/users/delete(id=${user.id})}" class="btn btn-danger m-1">Borrar</a>
+									</td>
+								</tr>
+							</tbody>
+						</table>
+					</div>
+				</div>
+			<a sec:authorize="hasRole('ROLE_MANAGER')" th:href="@{/users/addNew}" class="btn btn-primary mt-3">Añadir nuevo usuario</a>
+			<hr/>
+			<a th:href="@{/index}">Volver atrás</a>
+		</div>
+		<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
+		<script type="text/javascript" src="https://cdn.datatables.net/v/bs4/dt-1.11.5/datatables.min.js"></script>
+		<script>
+			$(document).ready(function() {
+				$("#users-table").DataTable();
+			})
+		</script>
+		<footer th:replace="fragments.html :: footer"></footer>
+	</body>
+</html>

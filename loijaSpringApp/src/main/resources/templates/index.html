@@ -1,0 +1,23 @@
+<!DOCTYPE html>
+<meta charset="UTF-8">
+<html xmlns:th="http://www.thymeleaf.org"
+      xmlns:sec="http://www.thymeleaf.org/extras/spring-security">
+	<head th:replace="fragments.html :: headerfiles"></head>
+	<body>
+		<header th:insert="fragments.html :: navbar"></header>
+		<div class="container">
+			<div class="jumbotron">
+				<div sec:authorize="!isAuthenticated()">
+					<h2 class="display-4">Bienvenido, inicia sesión para continuar.</h2>
+			    	<p class="lead" sec:authorize="!isAuthenticated()">Si no posees una cuenta, contacta con el administrador de la aplicación.</p>
+				</div>
+				<div sec:authorize="isAuthenticated()">
+	        		<h2 class="display-4">Bienvenido, <span sec:authentication="name"></span>.</h2>
+	        		<p class="lead" >Tus roles de usuario: <span sec:authentication="principal.authorities"></span>
+	        	</div>
+				<hr/>
+			</div>
+		</div>
+		<footer th:replace="fragments.html :: footer"></footer>
+	</body>
+</html>

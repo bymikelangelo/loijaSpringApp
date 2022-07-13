@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<meta charset="UTF-8">
+<html xmlns:th="http://www.thymeleaf.org">
+	<head th:replace="fragments.html :: headerfiles"></head>
+	<body>	
+		<div class="container">
+			<div class="row justify-content-center">
+				<div class="col-md-8">
+					<div class="card mt-5">
+						<div th:if="${param.id}" class="card-header text-center">Formulario de <i><b><span th:text="${user.username}"></span></b></i></div>
+						<div th:unless="${param.id}" class="card-header text-center">Formulario de nuevo usuario</div>
+						<div class="card-body">
+							<form th:action="@{/users/save}" th:object="${user}" method="POST">
+								<input type="hidden" th:field="*{id}"/>		
+								<div class="row form-group">
+									<label class="col-md-4">Nombre</label>
+									<input type="text" th:field="*{firstname}" class="form-control col-md-7"/>
+									<small class="form-text text-danger offset-4" th:if="${#fields.hasErrors('firstname')}" th:errors="*{firstname}"></small>
+								</div>
+								<div class="row form-group">
+									<label class="col-md-4">Apellido</label>
+									<input type="text" th:field="*{surname}" class="form-control col-md-7"/>
+									<small class="form-text text-danger offset-4" th:if="${#fields.hasErrors('surname')}" th:errors="*{surname}"></small>
+								</div>
+								<div class="row form-group">
+									<label class="col-md-4">Nombre de usuario</label>
+									<input type="text" th:field="*{username}" class="form-control col-md-7"/>
+									<small class="form-text text-danger offset-4" th:if="${#fields.hasErrors('username')}" th:errors="*{username}"></small>
+								</div>
+								<div class="row form-group">
+									<label class="col-md-4">Contraseña</label>
+									<input type="text" th:field="*{password}" class="form-control col-md-7"/>		
+									<small class="form-text text-danger offset-4" th:if="${#fields.hasErrors('password')}" th:errors="*{password}"></small>
+								</div>	
+								<button class="btn btn-primary" type="submit">Guardar</button>					
+							</form>
+						</div>
+					</div>
+					<hr/>
+					<a th:href="@{/users}">Volver atrás</a>
+				</div>
+			</div>
+		</div>
+		<footer th:replace="fragments.html :: footer"></footer>
+	</body>
+</html>

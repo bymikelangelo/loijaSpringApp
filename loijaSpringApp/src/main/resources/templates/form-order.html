@@ -1,0 +1,24 @@
+<!DOCTYPE html>
+<meta charset="UTF-8">
+<html xmlns:th="http://www.thymeleaf.org">
+	<head th:replace="fragments.html :: headerfiles"></head>
+	<body>	
+		<div class="container">
+			<h2>Añadir nueva comanda de fabricación</h2>
+			<hr/>
+			<h5>Introduce los siguientes datos</h5>
+			<form th:action="@{/fOrders/save}" th:object="${order}" method="POST">
+				<input type="hidden" th:field="*{id}"/>		
+				<input type="text" th:field="*{itemId}" placeholder="Id producto" class="form-control col-4 mb-4"/>
+				<input type="text" th:field="*{amount}" placeholder="Cantidad" class="form-control col-4 mb-4"/>
+				<input type="date" th:field="*{deadline}" placeholder="Fecha límite" class="form-control col-4 mb-4"
+					min="1997-01-01" max="2030-12-31"/>
+				<input type="text" th:field="*{notes}" placeholder="Anotaciones" class="form-control col-4 mb-4"/>			
+				<button class="btn btn-primary mb-2" type="submit">Guardar</button>
+			</form>
+			<hr/>
+			<a th:href="@{/fOrders}">Volver atrás</a>
+		</div>
+		<footer th:replace="fragments.html :: footer"></footer>
+	</body>
+</html>

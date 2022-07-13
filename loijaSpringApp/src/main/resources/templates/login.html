@@ -1,0 +1,37 @@
+<!DOCTYPE html>
+<meta charset="UTF-8">
+<html xmlns:th="http://www.thymeleaf.org"
+	xmlns:sec="http://www.thymeleaf.org/extras/spring-security">
+	<head th:replace="fragments.html :: headerfiles"></head>
+	<body>	
+		<header th:insert="fragments.html :: navbar"></header>
+		<div class="container">
+			<div class="row justify-content-center">
+				<div class="col-md-5">
+				    <div th:if="${param.logout}" class="alert alert-success text-center mt-3">Sesión cerrada con éxito</div>
+				    <div th:if="${param.error}" class="alert alert-danger text-center mt-3">Usuario no encontrado</div>
+					<div class="card mt-4">
+						<div class="card-header text-center"><i class="fa fa-user"></i> Iniciar sesión</div>
+						<div class="card-body">	
+							<form sec:authorize="!isAuthenticated()" th:action="@{/signin}" method="POST">
+								<div class="row form-group">
+									<label class="col-md-5">Nombre de usuario</label>
+									<input type="text" name="username" class="form-control col-md-6"/>
+								</div>		
+								<div class="row form-group">
+									<label class="col-md-5">Contraseña</label>
+									<input type="text" name="password" class="form-control col-md-6"/>
+								</div>							
+								<button class="btn btn-primary" type="submit" value="submit">Entrar</button>
+							</form>
+							<p class="lead" sec:authorize="isAuthenticated()">Ya has iniciado sesión</p>
+						</div>					
+					</div>
+					<hr/>
+					<a th:href="@{/index}">Volver atrás</a>
+				</div>
+			</div>
+		</div>
+		<footer th:replace="fragments.html :: footer"></footer>
+	</body>
+</html>
