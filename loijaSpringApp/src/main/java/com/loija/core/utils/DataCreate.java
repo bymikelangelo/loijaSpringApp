@@ -159,11 +159,11 @@ public class DataCreate implements CommandLineRunner {
         manager.setFirstname("manager");
         manager.setSurname("manager");
         manager.setUsername("manager");
-        admin.setPassword(passwordEncoder.encode("manager"));
+        manager.setPassword(passwordEncoder.encode("manager"));
         Set<Rol> rolesManager = new HashSet<>();
         rolesManager.add(managerRol);
         rolesManager.add(userRol);
-        admin.setRoles(rolesManager);
+        manager.setRoles(rolesManager);
         userService.addUser(manager);
         //fin USER MANAGER
         
